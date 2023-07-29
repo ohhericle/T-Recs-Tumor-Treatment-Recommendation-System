@@ -26,7 +26,7 @@ def combine_bid_sent_loc(bid_loc_path: Path, bid_sent_loc_bname_path: Path):
 
 if __name__ == '__main__':
     
-    subprocess.run(['./preprocess_location.sh'])    
+    subprocess.run(['./bash_scripts/preprocess_location.sh'])    
 
     bus_contains_doc = Path('../data/business_data/yelp_business_contains_doctor.json')
     bid_loc = Path('../data/business_data/yelp_bid_loc.csv')

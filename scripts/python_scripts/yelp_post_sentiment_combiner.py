@@ -51,7 +51,7 @@ if __name__ == '__main__':
 
     combine_bid_sent(bid_review_sent)
 
-    rev_sent_path = Path('../data/sentiment_data/yelp_bid_sentiment.csv')
+    rev_sent_path = Path('../data/sentiment_data/yelp_bid_sent.csv')
     bid_name_path = Path('../data/raw_data/yelp_bid_name.csv')
 
     combine_bid_sent_name(rev_sent_path, bid_name_path)

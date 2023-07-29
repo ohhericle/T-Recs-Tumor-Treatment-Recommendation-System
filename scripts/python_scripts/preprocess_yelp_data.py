@@ -22,16 +22,17 @@ def extract_and_split():
 
     # Extract the yelp data to make yelp_contains_doctor.json and yelp_bid.csv
 
-    subprocess.run(['./extract_yelp_data.sh'])
+
+    subprocess.run(['./bash_scripts/extract_yelp_data.sh'])
 
     # Run splitter to create the yelp_business_ids_dir
 
-    subprocess.run(['./splitter.sh'])
+    subprocess.run(['./bash_scripts/splitter.sh'])
 
     # Execute runner.sh to get the business names.
     
     print('Fetching Business Names From Yelp. May take a while......')
-    subprocess.run(['./runner.sh'])
+    subprocess.run(['./bash_scripts/runner.sh'])
 
 
 def combine_data(yelp_bid, yelp_review_text):
