@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>T-RECS</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+  <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+</head>
+
+<body>
+<!-- partial:index.partial.html -->
+<link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<main>
+	<img src="{{url_for('static', filename='img/dino.png')}}" alt= "Dino">
+	<h1>T-RECS - Tumor Treatment Recommendation System</h1>
+	<h2>Find a Oncologist Near You </h2>
+	
+	<!-- <br><fieldset>
+		<legend>Choose your Preferences</legend>
+		<div>
+		  <input type="radio" id="Years of Experience" name="interest" value="Years of Experience" />
+		  <label for="Years of Experience">Years of Experience</label>
+		</div>
+		<div>
+		  <input type="radio" id="Sentiment Score" name="interest" value="Sentiment Score" />
+		  <label for="Sentiment Score">Sentiment Score</label>
+		</div>
+		<div>
+			<input type="radio" id="Distance" name="interest" value="Distance" />
+			<label for="Distance">Distance</label>
+		  </div>
+		  <div>
+			<input type="radio" id="Reviews" name="Reviews" value="Reviews" />
+			<label for="Distance">Reviews</label>
+		  </div>
+
+	  </fieldset><br> -->
+
+	<h3>Rank your Preferences</h3>
+	<div class='container'> 
+	
+	
+	<div class="source-container">
+	<div class='source'>
+	<div class='item'>
+		<p>Years of Experience</p>
+	</div>
+	</div>
+	
+	<div class='source'>
+	<div class='item'>
+		<p>Patient Satisfaction</p>
+	</div>
+	</div>
+	
+	<div class='source'>
+	<div class='item'>
+		<p>Distance</p>
+	</div>
+	</div>
+	
+	<div class='source'>
+		<div class='item'>
+			<p>Male Oncologist</p>
+		</div>
+		</div>
+
+	<div class='source'>
+	<div class='item'>
+		<p>Female Oncologist</p>
+	</div>
+	</div>
+	
+	</div>
+	<div class='move-back'>
+	</div>
+	<div class='destination-container'>
+	<div class="destination" id="dest1">
+		<span>1</span>
+	</div>
+	<div class="destination" id="dest2">
+		<span>2</span>
+	</div>
+	<div class="destination" id="dest3">
+		<span>3</span>
+	</div>
+	<div class="destination" id="dest5">
+		<span>4</span>
+	</div>
+	<div class="destination" id="dest5">
+		<span>5</span>
+	</div>
+
+	</div>
+	
+	</div>
+	  
+	
+	<br><div class="SearchBox">
+		<input type="text" class="SearchBox-input" placeholder="ENTER YOUR ZIPCODE">
+		
+	
+			<button class="SearchBox-button">
+				<i class="SearchBox-icon  material-icons">search</i>
+			</button>	
+	</div>
+	
+</main>
+
+<!-- partial -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js'></script>
+<script src="{{url_for('static', filename='js/script.js')}}"></script>
+</body>
+
+</html>
