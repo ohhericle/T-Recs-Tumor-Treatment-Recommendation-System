@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 echo Preprocessing yelp data...
 /home/ec2-user/miniconda3/bin/python python_scripts/preprocess_yelp_data.py

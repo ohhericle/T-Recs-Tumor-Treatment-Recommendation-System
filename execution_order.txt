@@ -7,29 +7,27 @@ FILE: preprocess_yelp_data.py:
      - input: 
  	data/raw_data/yelp_academic_dataset.json
      - output: 
- 	data/raw_data/yelp_contains_doctor.json
- 	data/raw_data/yelp_bid.csv
- 	yelp_review_text.txt
+ 	data/processed_raw_data/yelp_contains_doctor.json
+ 	data/processed_raw_data/yelp_bid.csv
+ 	data/processed_raw_data/yelp_review_text.txt
  
    - splitter.sh
      - input:
- 	data/raw_data/yelp_contains_doctor.json
+ 	data/processed_raw_data/yelp_contains_doctor.json
      - output: 
- 	dir: data/yelp_business_ids_dir
+ 	dir: data/processed_raw_data/yelp_business_ids_dir
  
    - runner.sh to call get.sh
      - input:
- 	dir: data/yelp_business_ids_dir 
+ 	dir: data/processed_raw_data/yelp_business_ids_dir 
      - output: 
- 	yelp_bid_name.csv
+ 	data/processed_raw_data/yelp_bid_name.csv
 
-# TODO: change this to combine_bid_rev 
- combine_data():
-   - combine yelp bids and reviews 
-     - input:
- 	data/raw_data/yelp_bid.csv
-     - output: 
- 	data/clean_data/yelp_bid_reviews.csv
+ combine_bid_rev():
+   - input:
+       data/raw_data/yelp_bid.csv
+   - output: 
+       data/clean_data/yelp_bid_reviews.csv
 
 ##################################################################
 
@@ -57,7 +55,7 @@ FILE: yelp_post_sentiment_combiner.py
   - combine_bid_sent_name()
     - input:
 	data/sentiment_data/yelp_bid_sent.csv
-	data/raw_data/yelp_bid_name.csv
+	data/processed_raw_data/yelp_bid_name.csv
     - output:
 	data/sentiment_data/yelp_bid_sentiment_name.csv
 
@@ -70,7 +68,7 @@ FILE: final_data_combiner.py
   - runs preprocess_location.sh:
     - input: 
         data/raw_data/yelp_academic_dataset_business.json
-        data/business_data/doctor_categories.txt
+        data/raw_data/doctor_categories.txt
     - output: 
         data/business_data/yelp_business_contains_doctor.json
 

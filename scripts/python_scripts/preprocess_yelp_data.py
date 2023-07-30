@@ -1,6 +1,8 @@
 import os
+import boto3
 import subprocess
 import pandas as pd
+from smart_open import smart_open
 
 def extract_and_split():
 
@@ -17,25 +19,18 @@ def extract_and_split():
         yelp_business_ids_dir
     '''
 
-    main_capstone = '/home/ec2-user/capstone/'
-    business_id_name_map = main_capstone + 'data/raw_data/yelp_bid_name.csv'
-
     # Extract the yelp data to make yelp_contains_doctor.json and yelp_bid.csv
-
-
     subprocess.run(['./bash_scripts/extract_yelp_data.sh'])
 
     # Run splitter to create the yelp_business_ids_dir
-
     subprocess.run(['./bash_scripts/splitter.sh'])
 
     # Execute runner.sh to get the business names.
-    
     print('Fetching Business Names From Yelp. May take a while......')
     subprocess.run(['./bash_scripts/runner.sh'])
 
 
-def combine_data(yelp_bid, yelp_review_text):
+def combine_bid_rev(yelp_bid, yelp_review_text):
 
     '''
     Combine all the various data joining into one function
@@ -49,7 +44,7 @@ def combine_data(yelp_bid, yelp_review_text):
     data = []
     
     ids = pd.read_csv(yelp_bid)
-    with open(yelp_review_text) as f:
+    with smart_open(yelp_review_text) as f:
     
         for line in f:
             data.append(line)
@@ -61,13 +56,13 @@ def combine_data(yelp_bid, yelp_review_text):
     output_frame['review'] = data
     
     output_frame.to_csv(
-        '../data/clean_data/yelp_bid_reviews.csv', index=False
+        's3://trecs-data-s3/data/clean_data/yelp_bid_reviews.csv', index=False
     )
 
 if __name__ == '__main__':
 
-    yelp_bid = '../data/raw_data/yelp_bid.csv'
-    yelp_review_text = '../data/raw_data/yelp_review_text.txt'
+    yelp_bid = 's3://trecs-data-s3/data/processed_raw_data/yelp_bid.csv'
+    yelp_review_text = 's3://trecs-data-s3/data/processed_raw_data/yelp_review_text.txt'
 
     extract_and_split()
-    combine_data(yelp_bid, yelp_review_text)
+    combine_bid_rev(yelp_bid, yelp_review_text)
