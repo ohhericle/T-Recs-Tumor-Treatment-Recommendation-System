@@ -14,5 +14,9 @@ echo Combining sentiment datasets...
 echo Done combining datasets.
 
 echo Combining sentiment and location datasets...
-/home/ec2-user/miniconda3/bin/python python_scripts/final_data_combiner.py
+/home/ec2-user/miniconda3/bin/python python_scripts/yelp_sentiment_location_combiner.py
 echo Done combining datasets. 
+
+echo Generating placekeys for yelp dataset...
+/home/ec2-user/miniconda3/bin/python python_scripts/generate_yelp_placekeys.py
+echo Completed placekey generation.  
