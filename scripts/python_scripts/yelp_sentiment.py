@@ -1,3 +1,4 @@
+import boto3
 import pandas as pd
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 
@@ -11,7 +12,7 @@ def calculate_sentiment(datapath: str):
         yelp_bid_reviews.csv
 
     output
-         yelp_bid_review_sentiment.csv       
+        yelp_bid_review_sentiment.csv       
     '''
 
     def _get_sentiment(text: str):
@@ -53,10 +54,10 @@ def calculate_sentiment(datapath: str):
     dataset['compound'] = compound
     
     dataset.to_csv(
-        '../data/sentiment_data/yelp_bid_review_sentiment.csv', index=False
+        's3://trecs-data-s3/data/sentiment_data/yelp_bid_review_sentiment.csv', index=False
     )
 
 
 if __name__ == '__main__':
 
-    calculate_sentiment('../data/clean_data/yelp_bid_reviews.csv')
+    calculate_sentiment('s3://trecs-data-s3/data/clean_data/yelp_bid_reviews.csv')

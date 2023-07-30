@@ -1,17 +1,12 @@
 #!/bin/bash
+set -x
 
-input_file=/home/ec2-user/capstone/data/raw_data/yelp_contains_doctor.json
+input_file=temp_data/processed_raw_data/yelp_contains_doctor.json
 lines_per_file=250
 output_prefix="output"  # Prefix for the output files
 
-# Check if the input file exists
-if [ ! -f "$input_file" ]; then
-    echo "Input file not found."
-    exit 1
-fi
-
 # Create output directory
-output_dir="/home/ec2-user/capstone/data/yelp_business_ids_dir/"  # Replace with the desired output directory
+output_dir="temp_data/processed_raw_data/yelp_business_ids_dir/" 
 mkdir -p "$output_dir"
 
 # Splitting the file

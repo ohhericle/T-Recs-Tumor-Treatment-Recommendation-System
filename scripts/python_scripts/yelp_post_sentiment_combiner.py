@@ -1,9 +1,9 @@
 import os
+import boto3
 import pandas as pd
-from pathlib import Path
 
 
-def combine_bid_sent(bid_rev_sent: Path):
+def combine_bid_sent(bid_rev_sent: str):
 
     data = pd.read_csv(bid_rev_sent)
     data = data[
@@ -13,10 +13,10 @@ def combine_bid_sent(bid_rev_sent: Path):
     data = data.groupby('business_id').mean().reset_index()
     data = pd.DataFrame(data)
     
-    data.to_csv('../data/sentiment_data/yelp_bid_sent.csv', index=False)
+    data.to_csv('s3://trecs-data-s3/data/sentiment_data/yelp_bid_sent.csv', index=False)
 
 
-def combine_bid_sent_name(rev_sent_path: Path, bid_name_path: Path): 
+def combine_bid_sent_name(rev_sent_path: str, bid_name_path: str): 
 
     rev_sent = pd.read_csv(rev_sent_path)
     bid_name = pd.read_csv(bid_name_path)
@@ -39,19 +39,18 @@ def combine_bid_sent_name(rev_sent_path: Path, bid_name_path: Path):
     )
 
     rev_sent.to_csv(
-        '../data/sentiment_data/yelp_bid_sent_name.csv', index=False
+        's3://trecs-data-s3/data/sentiment_data/yelp_bid_sent_name.csv', index=False
     )
 
 
 if __name__ == '__main__':
 
-    bid_review_sent = Path(
-        '../data/sentiment_data/yelp_bid_review_sentiment.csv'
-    )
+    bid_review_sent = 's3://trecs-data-s3/data/sentiment_data/yelp_bid_review_sentiment.csv'
+    
 
     combine_bid_sent(bid_review_sent)
 
-    rev_sent_path = Path('../data/sentiment_data/yelp_bid_sent.csv')
-    bid_name_path = Path('../data/raw_data/yelp_bid_name.csv')
+    rev_sent_path = 's3://trecs-data-s3/data/sentiment_data/yelp_bid_sent.csv'
+    bid_name_path = 's3://trecs-data-s3/data/processed_raw_data/yelp_bid_name.csv'
 
     combine_bid_sent_name(rev_sent_path, bid_name_path)
