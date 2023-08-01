@@ -13,6 +13,8 @@ def combine_bid_loc(bus_contains_doc_path: str):
         columns=['is_open', 'attributes', 'hours', 'review_count', 'stars']
     )
     
+    bus_contains_doc = bus_contains_doc.drop_duplicates(subset='business_id')    
+    
     bus_contains_doc.to_csv(
         's3://trecs-data-s3/data/business_data/yelp_bid_loc.csv', index=False
     ) 
