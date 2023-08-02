@@ -10,11 +10,11 @@ function copy_from_aws(){
 
 
 copy_from_aws yelp_academic_dataset_business.json
-copy_from_aws doctor_categories.txt 
+copy_from_aws medical_terms.txt 
 
 
 YELP_BUS_RAW_DATA=temp_data/raw_data/yelp_academic_dataset_business.json
-YELP_BUS_CAT=temp_data/raw_data/doctor_categories.txt
+YELP_BUS_CAT=temp_data/raw_data/medical_terms.txt
 YELP_BUS_FILTERED_DATA=temp_data/business_data/yelp_business_contains_doctor.json
 
 

@@ -66,7 +66,7 @@ def get_placekeys_address(in_datapath: str, out_datapath: str):
     placekeys_data = placekeys_data.dropna()
     postdrop_placekeys = placekeys_data['uuid'].tolist()
 
-    placekeys_data['placekey'] = placekeys_data['placekey'].apply(lambda x: str(x)[3:-2])
+    placekeys_data['placekey'] = placekeys_data['placekey'].apply(lambda x: str(x)[3:-1])
 
     missing_placekeys = list(set(predrop_placekeys) - set(postdrop_placekeys))
 
@@ -133,7 +133,7 @@ def get_full_address_placekeys(provider_data: pd.DataFrame):
     placekeys_data = placekeys_data.drop(columns=['error'])
     placekeys_data = placekeys_data.dropna()
 
-    placekeys_data['placekey'] = placekeys_data['placekey'].apply(lambda x: str(x)[str(x).index('@'):-2])
+    placekeys_data['placekey'] = placekeys_data['placekey'].apply(lambda x: str(x)[str(x).index('@'):-1])
 
     return placekeys_data
 

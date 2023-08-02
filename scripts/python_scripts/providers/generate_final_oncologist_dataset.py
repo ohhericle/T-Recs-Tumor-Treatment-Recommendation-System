@@ -9,11 +9,6 @@ def get_final_oncologist_dataset(in_path: str, out_path: str):
                                  converters={"zip": str}
                                 )
 
-    # for each NPI: drop rows where place keys are duplicated 
-    # AKA only keep unique place keys for each doc
-
-    # get provider data at NPI, go unique on place keys = get uuids
-
     unique_npis = list(set(provider_data['NPI'].tolist()))
     uuid_placekey_frame = pd.DataFrame(columns = provider_data.columns)
 

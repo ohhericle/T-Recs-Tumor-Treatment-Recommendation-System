@@ -8,13 +8,10 @@
 	2. yelp_sentiment.py
 	     - sentiment_data/yelp_bid_review_sentiment.csv
 
-	3. yelp_post_sentiment_combiner.py
-	     - sentiment_data/yelp_bid_sent_name.csv
-
-	4. yelp_sentiment_location_combiner.py
+	3. yelp_sentiment_location_combiner.py
 	     - sentiment_data/final_yelp_sent_data.csv 
 
-	5. generate_yelp_placekeys.py 
+	4. generate_yelp_placekeys.py 
 	     - clean_data/final_yelp_dataset.csv 
 
 ###################################################################

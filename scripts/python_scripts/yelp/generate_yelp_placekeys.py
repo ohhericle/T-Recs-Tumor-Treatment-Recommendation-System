@@ -40,7 +40,7 @@ def get_placekeys_coords(in_data: str, out_datapath: str):
     
     
     placekeys_data = placekeys_data.rename(columns={'query_id': 'business_id'})
-    placekeys_data['placekey'] = placekeys_data['placekey'].apply(lambda x: x[:-2])
+    placekeys_data['placekey'] = placekeys_data['placekey'].apply(lambda x: x[:-1])
     
     yelp_data_final = yelp_data.merge(placekeys_data, on='business_id')
     yelp_data_final.to_csv(out_datapath) 
