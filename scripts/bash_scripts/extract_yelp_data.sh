@@ -10,16 +10,17 @@ function copy_to_aws(){
 mkdir -p temp_data/raw_data
 mkdir -p temp_data/processed_raw_data
 aws s3 cp s3://trecs-data-s3/data/raw_data/yelp_academic_dataset_review.json temp_data/raw_data
-
+aws s3 cp s3://trecs-data-s3/data/raw_data/doctor_categories.txt temp_data/raw_data
 
 RAW_DATA=temp_data/raw_data/yelp_academic_dataset_review.json
+MEDICAL_TERMS=temp_data/raw_data/doctor_categories.txt
 
 
 # Create yelp_contains_doctor.json
 DOCTOR_DATA=temp_data/processed_raw_data/yelp_contains_doctor.json
-touch ${DOCTOR_DATA}
-cat ${RAW_DATA} | grep -i 'doctor' >> ${DOCTOR_DATA}
-
+for i in $( cat ${MEDICAL_TERMS} ); do
+	cat ${RAW_DATA} | grep -i $i  >> ${DOCTOR_DATA}
+done
 
 # Create yelp_bid.csv
 BID=temp_data/processed_raw_data/yelp_bid.csv
