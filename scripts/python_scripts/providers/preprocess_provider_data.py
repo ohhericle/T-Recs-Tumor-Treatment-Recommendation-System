@@ -1,5 +1,6 @@
 import uuid
 import boto3
+import datetime
 import pandas as pd
 
 
@@ -31,7 +32,9 @@ def get_oncologists(medical_providers: str):
                     (providers['sec_spec_4'].str.contains('ONCOLOGY')) |
                     (providers['sec_spec_all'].str.contains('ONCOLOGY'))
                  ]
-    
+
+    current_year = datetime.date.today().year
+    oncologists['years_of_experience'] = current_year - oncologists['Grd_yr']
     
     # normalize format of column data 
     oncologists = oncologists.fillna('')
@@ -40,6 +43,11 @@ def get_oncologists(medical_providers: str):
                                oncologists['frst_nm'] + ' ' + \
                                oncologists['mid_nm'].replace('', '')
  
+    oncologists['full_address'] = oncologists['adr_ln_1'].str.upper() + ' ' + \
+                                  oncologists['adr_ln_2'].str.upper() + ' ' + \
+                                  oncologists['cty'].str.upper() + ', ' + \
+                                  oncologists['st'] + ' ' + \
+                                  oncologists['zip'].astype(str)
 
     oncologists['zip'] = oncologists['zip'].str[:5]
     oncologists = oncologists[oncologists['st'] != 'PR']

@@ -72,6 +72,6 @@ echo Pruning complete.
 
 
 
-echo '\nT-Recs Dataset:'
+echo $'\n\nT-Recs Dataset:'
 aws s3 ls s3://trecs-data-s3/data/final/ 
-echo '\n\nT-Recs Data Pipeline complete! Enjoy your data!\n\n'
+echo $'\n\nT-Recs Data Pipeline complete! Enjoy your data!\n\n'
