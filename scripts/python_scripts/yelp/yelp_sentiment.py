@@ -3,7 +3,7 @@ import pandas as pd
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 
 
-def calculate_sentiment(datapath: str):
+def calculate_sentiment(datapath: str, outfile_path: str):
 
     '''
     Get all the sentiment scores for the final preprocessed dataset
@@ -40,7 +40,7 @@ def calculate_sentiment(datapath: str):
     negative = []
     neutral = []
     compound = []
-    
+
     for i in dataset['review'].to_list():
         obj = _get_sentiment(i)
         positive.append(obj['pos'])
@@ -52,12 +52,35 @@ def calculate_sentiment(datapath: str):
     dataset['negative'] = negative
     dataset['neutral'] = neutral
     dataset['compound'] = compound
+
+    dataset = dataset.drop(columns=['review'])
     
-    dataset.to_csv(
-        's3://trecs-data-s3/data/sentiment_data/yelp_bid_review_sentiment.csv', index=False
-    )
+    dataset = apply_avg_sent_to_bid(dataset)
+
+    dataset.to_csv(outfile_path, index=False)
+
+
+def apply_avg_sent_to_bid(data: pd.DataFrame):
+
+    data = data[
+        ['business_id', 'positive', 'negative', 'neutral', 'compound']
+    ]
+
+    data = data.groupby('business_id').mean().reset_index()
+    data = pd.DataFrame(data)
+
+    return data
 
 
 if __name__ == '__main__':
 
-    calculate_sentiment('s3://trecs-data-s3/data/clean_data/yelp_bid_reviews.csv')
+    
+    yelp_bid_rev = 's3://trecs-data-s3/data/clean_data/yelp_bid_reviews.csv'
+    bid_review_sent = 's3://trecs-data-s3/data/sentiment_data/yelp_bid_review_sentiment.csv'
+    
+    calculate_sentiment(yelp_bid_rev, bid_review_sent)
+
+
+
+
+

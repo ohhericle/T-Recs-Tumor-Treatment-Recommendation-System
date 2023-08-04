@@ -1,0 +1,39 @@
+###################################################################
+
+                                       YELP SENTIMENT DATA PIPELINE
+
+	1. preprocess_yelp_data.py
+	     - clean_data/yelp_bid_reviews.csv  
+
+	2. yelp_sentiment.py
+	     - sentiment_data/yelp_bid_review_sentiment.csv
+
+	3. yelp_sentiment_location_combiner.py
+	     - sentiment_data/final_yelp_sent_data.csv 
+
+	4. generate_yelp_placekeys.py 
+	     - clean_data/final_yelp_dataset.csv 
+
+###################################################################
+###################################################################
+
+                                     MEDICAL PROVIDER DATA PIPELINE
+
+	1. preprocess_provider_data.py
+	     - clean_data/oncologists.csv
+
+	2. generate_provider_placekeys.py
+	     - clean_data/placekey_oncologist_dataset.csv 
+	
+	3. generate_final_oncologist_dataset.py 
+	     - clean_data/final_oncologist_dataset.csv 
+
+###################################################################
+###################################################################
+
+					  DATA COMBINATION PIPELINE
+
+	1. generate_final_trecs_dataset.py
+	     - final/trecs.csv
+
+###################################################################
