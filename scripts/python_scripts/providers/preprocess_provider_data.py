@@ -10,7 +10,7 @@ def get_oncologists(medical_providers: str):
                              medical_providers, 
                              encoding='unicode_escape', 
                              low_memory=False,
-                             converters={"zip": str} 
+                             converters={'zip': str, 'phn_nmbr': str} 
                            )
 
     # fix the weird characters in the header :)
@@ -35,6 +35,15 @@ def get_oncologists(medical_providers: str):
 
     current_year = datetime.date.today().year
     oncologists['years_of_experience'] = current_year - oncologists['Grd_yr']
+
+    def format_number(number):
+        if pd.notna(number):
+            number_str = str(number)
+            return f'({number_str[:3]}){number_str[3:6]}-{number_str[6:]}'
+        else:
+            return ''
+
+    oncologists['phn_numbr'] = oncologists['phn_numbr'].apply(format_number)
     
     # normalize format of column data 
     oncologists = oncologists.fillna('')
@@ -43,18 +52,19 @@ def get_oncologists(medical_providers: str):
                                oncologists['frst_nm'] + ' ' + \
                                oncologists['mid_nm'].replace('', '')
  
+    oncologists['zip'] = oncologists['zip'].str[:5]
+    oncologists = oncologists[oncologists['st'] != 'PR']
+
     oncologists['full_address'] = oncologists['adr_ln_1'].str.upper() + ' ' + \
                                   oncologists['adr_ln_2'].str.upper() + ' ' + \
                                   oncologists['cty'].str.upper() + ', ' + \
                                   oncologists['st'] + ' ' + \
                                   oncologists['zip'].astype(str)
-
-    oncologists['zip'] = oncologists['zip'].str[:5]
-    oncologists = oncologists[oncologists['st'] != 'PR']
     
     oncologists['uuid'] = oncologists.apply(lambda _: uuid.uuid4().hex, axis=1)
     oncologists['uuid'] = oncologists['uuid'].astype(str)
-
+    
+  
 
     oncologists.to_csv(
             's3://trecs-data-s3/data/clean_data/oncologists.csv',

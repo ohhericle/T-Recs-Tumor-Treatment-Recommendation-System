@@ -5,7 +5,6 @@ import pandas as pd
 
 
 
-
 def generate_trecs_dataset( 
                             yelp_path: str, 
                             onc_path: str, 
@@ -23,7 +22,11 @@ def generate_trecs_dataset(
     zip_code_placekeys = pd.read_csv(zip_pk_path, converters={'zip': str})
 
 
-    trecs_data = pd.merge(oncologist_data, yelp_data, on='placekey', how='left')
+    trecs_data = pd.merge( oncologist_data,
+                           yelp_data, 
+                           on='placekey', 
+                           how='left')
+    
     trecs_data = trecs_data.drop_duplicates(subset=['uuid'])
 
     org_mean_compounds = trecs_data.groupby('org_nm')['compound'].mean().to_dict()
@@ -36,32 +39,50 @@ def generate_trecs_dataset(
     trecs_data['compound'] = trecs_data.apply(get_missing_scores, axis=1)
 
 
-    zip_code_placekeys= zip_code_placekeys.rename(columns={
-                                                     'placekey': 'Centroid Placekey',
-                                                     'latitude': 'Centroid Latitude',
-                                                     'longitude': 'Centroid Longitude'
-                                                })
+    zip_code_placekeys= zip_code_placekeys.rename(
+                                columns={
+                                            'placekey': 'Centroid Placekey',
+                                            'latitude': 'Centroid Latitude',
+                                            'longitude': 'Centroid Longitude'
+                                        }
+                        )
 
     trecs_data = trecs_data.merge(zip_code_placekeys, on='zip', how='left')
 
     trecs_data = trecs_data [[  
-                                'uuid', 
-                                'full_name', 
-                                'gndr', 
-                                'Cred', 
-                                'years_of_experience', 
-                                'Med_sch',
-                                'org_nm', 
-                                'full_address', 'phn_numbr', 
-                                'cty', 
-                                'zip', 
-                                'compound', 
-                                'placekey', 
-                                'Centroid Placekey', 
-                                'Centroid Latitude', 
-                                'Centroid Longitude' 
-                            ]]
+                    'uuid', 
+                    'full_name', 
+                    'gndr', 
+                    'Cred', 
+                    'years_of_experience', 
+                    'Med_sch',
+                    'org_nm', 
+                    'full_address', 
+                    'phn_numbr', 
+                    'cty', 
+                    'zip', 
+                    'compound', 
+                    'placekey', 
+                    'Centroid Placekey', 
+                    'Centroid Latitude', 
+                    'Centroid Longitude' 
+                 ]]
+    
+    trecs_data = trecs_data.dropna(subset=['Centroid Placekey'])
+    
+    score_mapping = [0, 1, 2, 3, 4, 5]
+    bins = [-float('inf'), -1.0, -0.6, -0.2, 0.2, 0.6, 1.0]
 
+    trecs_data['compound'].fillna(0, inplace=True)
+    trecs_data['compound'] = trecs_data['compound'].replace(0.0, -999)
+
+    trecs_data['compound'] = pd.cut( trecs_data['compound'], 
+                                     bins=bins, 
+                                     labels=score_mapping, 
+                                     right=False )    
+    
+    trecs_data['compound'] = trecs_data['compound'].astype(int)
+    
     new_columns = {
         'full_name': 'Oncologist Name',
         'gndr': 'Gender',
@@ -73,7 +94,7 @@ def generate_trecs_dataset(
         'phn_numbr': 'Phone Number',
         'cty': 'City',
         'zip': 'Zip',
-        'compound': 'Overall Score',
+        'compound': 'Score',
         'placekey': 'Org Placekey'
     }
 
