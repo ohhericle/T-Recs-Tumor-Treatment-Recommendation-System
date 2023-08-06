@@ -17,22 +17,7 @@ from geopy.distance import geodesic
 pd.options.mode.chained_assignment = None
 warnings.filterwarnings('ignore', category=DeprecationWarning)
 
-"""## Import S3 Bucket Data
-
-## Add docstrings
-
-    '''
-    Routine to execute extract_yelp_data.sh, splitter.sh, and runner.sh
-    
-    inputs:
-        None
-    
-    outputs:
-        yelp_bid.csv
-        yelp_review_text.txt
-        yelp_contains_doctor.json
-    '''
-"""
+"""## Import S3 Bucket Data"""
 
 global s3_df
 
@@ -287,6 +272,4 @@ def get_best_doctors(target_zip,
     best_doctors.index = best_doctors.index + 1
 
     return best_doctors
-
-get_best_doctors('19102')
 
