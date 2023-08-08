@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>T-RECS</title>
+
+<style>
+body{
+  background: linear-gradient(#ffffff, #e283be);
+  font-family: sans-serif;
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  color:#006400;
+}
+
+select{
+  border:none;
+  padding: 10px 20px;
+  border-radius:5px;
+}
+
+select:focus{
+  outline:none;
+}
+
+table.dataframe, .dataframe th, .dataframe td {
+  border: none;
+  border-bottom: 1px solid #C8C8C8;
+  border-collapse: collapse;
+  text-align:left;
+  padding: 10px;
+  margin-bottom: 40px;
+  font-size: 0.9em;
+}
+
+</style>
+</head>
+
+<body>
+
+
+<main>
+	
+  
+	<h2><label for="language">FILTER BY:</label></h2>
+<select name="language" id="language">
+<a href=# id=test><button class ='btn btn-default'><option value="/score">Score</option></button></a>
+<a href= # id=test><button class = 'btn btn-default'><option>Years</option></button></a>
+  <option value="/distance" >Distance</option>
+  <option value="/gender_preference" >Gender</option>
+</select>
+
+
+
+{% for table in tables %}
+ {{titles[loop.index]}}
+ {{ table|safe }}
+ {% endfor %}
+
+<h2></h2>
+ <img src="{{url_for('static', filename='img/dino.png')}}" alt= "Dino" style="margin-left: 500px;" >
+<!-- <img src="C:/Users/illEric/Desktop/Test/Static/img/dino.png" alt="Dino" style="margin-left: 500px;"> -->
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type=text/javascript>
+        $(function() {
+          $('a#test').on('click', function(e) {
+            e.preventDefault()
+            $.getJSON('/background_process_test',
+                function(data) {
+              //do nothing
+            });
+            return false;
+          });
+        });
+</script>
+
+  
+</main>
+</body></html>
