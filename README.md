@@ -7,7 +7,7 @@ In order to run the data pipeline, please set up your environment with the follo
   3. Install `miniconda3` via the installer.
   4. Install `pandas` and `vaderSentiment` via `pip`.
 
-## Yelp Data Pipeline
+## Data Pipeline
 To execute the Yelp data pipeline found in the `generate_trecs_data.sh` bash script, run `./generate_trecs_data.sh`. 
 This script contains following components:
   1. Preprocess Oncologist Dataset
