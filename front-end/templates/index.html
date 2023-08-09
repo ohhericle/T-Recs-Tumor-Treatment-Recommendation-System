@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>T-RECS</title>
+  <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+</head>
+
+<body>
+<!-- partial:index.partial.html -->
+<main>	
+
+	<!-- <img src="{{url_for('static', filename='img/prefs.png')}}" alt= "Dino" style="margin-left: 100px;" > -->
+	<img src="{{url_for('static', filename='img/dino.png')}}" alt= "Dino"  >
+	<img src="{{url_for('static', filename='img/dino.png')}}" alt= "Dino" style="margin-left: 450px;" >
+	
+	<div class="login-box">
+		<h2>T-RECS - Tumor Treatment Recommendation System</h2>
+		<h2>Find an Oncologist Near You </h2>
+		<br>
+		<form action="{{ url_for('home')}}" method="post">
+		  <div class="user-box">
+			<input type="text" name="zips" >
+			<label>ENTER ZIPCODE</label>
+		  </div>
+	
+		  
+		  <button class="button" type="submit">
+			Submit</button>
+		</form>
+	  </div>
+
+</main>
+
+<!-- partial -->
+</body>
+
+</html>

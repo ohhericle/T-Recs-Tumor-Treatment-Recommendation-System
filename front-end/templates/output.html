@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>T-RECS</title>
+
+<style>
+body{
+  background: linear-gradient(#ffffff, #e283be);
+  font-family: sans-serif;
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  color:#006400;
+}
+
+select{
+  border:none;
+  padding: 10px 20px;
+  border-radius:5px;
+}
+
+select:focus{
+  outline:none;
+}
+
+table.dataframe, .dataframe th, .dataframe td {
+  border: none;
+  border-bottom: 1px solid #C8C8C8;
+  border-collapse: collapse;
+  text-align:left;
+  padding: 10px;
+  margin-bottom: 40px;
+  font-size: 0.9em;
+}
+
+</style>
+</head>
+
+<body>
+
+
+<main>
+	
+  
+	<h2><label for="language">SORT BY:</label></h2>
+
+
+
+<button id = "scoreButton">Score</button>
+<button id ="yearButton">Years of Experience</button>
+<button id="distanceButton">Distance</button>
+
+<br>
+<br>
+
+{% for table in tables %}
+	 {{ table|safe }}
+{% endfor %}
+
+
+
+
+ <img src="{{url_for('static', filename='img/dino.png')}}" alt= "Dino" style="margin-left: 500px;" >
+
+<script>
+
+        document.getElementById("scoreButton").addEventListener("click", function() {
+
+            var parameterValue = "Score";  // Replace with the actual value
+
+            window.location.href = '/handle_click/' + encodeURIComponent(parameterValue);
+
+        });
+
+    </script>
+
+<script>
+
+        document.getElementById("yearButton").addEventListener("click", function() {
+
+            var parameterValue = "Years of Experience";  // Replace with the actual value
+
+            window.location.href = '/handle_click/' + encodeURIComponent(parameterValue);
+
+        });
+
+    </script>
+
+
+<script>
+
+        document.getElementById("distanceButton").addEventListener("click", function() {
+
+            var parameterValue = "Distance (miles)";  // Replace with the actual value
+
+            window.location.href = '/handle_click/' + encodeURIComponent(parameterValue);
+
+        });
+
+    </script>
+
+
+
+  
+</main>
+</body></html>
