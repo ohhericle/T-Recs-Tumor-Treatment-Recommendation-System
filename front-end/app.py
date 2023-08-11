@@ -21,7 +21,7 @@ app = Flask(__name__, template_folder='templates', static_folder='static')
 def handle_click(parameter):
     global trecs_df
     parameter=str(parameter)
-    if 'Years' in parameter:
+    if 'Years' in parameter or 'Score' in parameter:
         result = trecs_df.sort_values(by=[parameter], ascending=False)
     else:
         result = trecs_df.sort_values(by=[parameter])
